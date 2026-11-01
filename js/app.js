@@ -63,7 +63,7 @@
   if (temPix) {
     $("#pix").hidden = false;
     $$("[data-valor]").forEach(function (b) { b.addEventListener("click", function () { marcaValor(b); }); });
-    marcaValor($("[data-valor='10']"));
+    marcaValor($("[data-valor='40']"));
     $("#pix-copiar").addEventListener("click", function () {
       var ok = $("#pix-ok");
       var fim = function () { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2500); };
@@ -73,8 +73,17 @@
   }
   if (temPP) { $("#paypal").hidden = false; $("#paypal a").href = D.paypal; }
 
-  function abre(nome, tam, href) {
+  var OFERTA = ["Muamba!", "Orion Wave", "Sudoku", "Dominó"];
+  function mostraPedido(jogo) {
+    var vale = jogo !== null;
+    $("#pedido").hidden = !vale;
+    if (vale && jogo) $("#pedido-jogo").value = jogo;
+    if (vale) { $("#pedido-form").hidden = false; $("#pedido-ok").hidden = true; }
+  }
+  function abre(nome, tam, href, jogo) {
     var baixar = $("#doar-baixar");
+    mostraPedido(jogo === undefined ? null : jogo);
+    if (temPix && jogo !== undefined) marcaValor($("[data-valor='40']"));
     if (href) {
       $("#doar-titulo").innerHTML = nome;
       $("#doar-tam").textContent = tam;
@@ -92,10 +101,24 @@
   // cada download passa pela janela; sem Pix e PayPal configurados o link baixa direto
   if (temPix || temPP) {
     $$("a[data-dl]").forEach(function (a) {
-      a.addEventListener("click", function (e) { e.preventDefault(); abre(a.dataset.dl, a.dataset.tam, a.getAttribute("href")); });
+      a.addEventListener("click", function (e) { e.preventDefault(); abre(a.dataset.dl, a.dataset.tam, a.getAttribute("href"), OFERTA.indexOf(a.dataset.dl) >= 0 ? a.dataset.dl : undefined); });
     });
     $$("[data-apoiar]").forEach(function (b) { b.addEventListener("click", function () { abre(); }); });
+    $$("[data-oferta]").forEach(function (b) { b.addEventListener("click", function () { abre(undefined, undefined, undefined, b.dataset.oferta); }); });
+    var tipo = $("#pedido-tipo"), enviou = false;
+    tipo.addEventListener("change", function () {
+      var rom = tipo.selectedIndex === 0;
+      $("#pedido-nome-box").hidden = !rom; $("#pedido-nome").required = rom;
+      $("#pedido-det-box").hidden = rom; $("#pedido-det").required = !rom;
+    });
+    $("#pedido-form").addEventListener("submit", function () { enviou = true; $("#pedido-enviar").disabled = true; });
+    $("#pedido-alvo").addEventListener("load", function () {
+      if (!enviou) return;
+      enviou = false;
+      $("#pedido-form").reset(); $("#pedido-enviar").disabled = false;
+      $("#pedido-form").hidden = true; $("#pedido-ok").hidden = false;
+    });
   } else {
-    $$("[data-apoiar]").forEach(function (b) { b.hidden = true; });
+    $$("[data-apoiar],[data-oferta]").forEach(function (b) { b.hidden = true; });
   }
 })();
