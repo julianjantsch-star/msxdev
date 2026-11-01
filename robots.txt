@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://msxdev.com.br/sitemap.xml
