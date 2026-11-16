@@ -121,4 +121,16 @@
   } else {
     $$("[data-apoiar],[data-oferta]").forEach(function (b) { b.hidden = true; });
   }
+
+  // ---- contato (Google Forms, resposta chega no e-mail do Julian) ----
+  var cf = $("#contato-form"), cEnviou = false;
+  if (cf) {
+    cf.addEventListener("submit", function () { cEnviou = true; $("#contato-enviar").disabled = true; });
+    $("#contato-alvo").addEventListener("load", function () {
+      if (!cEnviou) return;
+      cEnviou = false;
+      cf.reset(); $("#contato-enviar").disabled = false;
+      cf.hidden = true; $("#contato-ok").hidden = false;
+    });
+  }
 })();

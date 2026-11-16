@@ -253,8 +253,20 @@
   <h2 data-en="Support the next cartridge">Apoie o próximo cartucho</h2>
   <p data-en="Every game here is free. A donation is optional and helps fund the next ones.">Todos os jogos daqui são grátis. A doação é opcional e ajuda a fazer os próximos.</p>
   <p data-en="JJ8bit: all games developed by Julian Jantsch.">JJ8bit: todos os jogos desenvolvidos por Julian Jantsch.</p>
-  <p class="contato" data-en="Contact: <a href='mailto:contato@jj8bit.com.br'>contato@jj8bit.com.br</a>">Contato: <a href="mailto:contato@jj8bit.com.br">contato@jj8bit.com.br</a></p>
   <div class="acoes"><button type="button" class="btn" data-apoiar data-en="Make a donation">Fazer uma doação</button></div>
+</section>
+
+<section class="miolo" id="contato">
+  <h2 data-en="Contact">Contato</h2>
+  <p data-en="Questions, bug reports or ideas? Write here and we'll answer by e-mail.">Dúvidas, erros nos jogos ou ideias? Escreva aqui e respondemos por e-mail.</p>
+  <form id="contato-form" action="https://docs.google.com/forms/d/e/1FAIpQLSe4q2Ue_Ucjz9I94HTlnAYd8A0tVFgWAz9T46OAjNghUVbviA/formResponse" method="POST" target="contato-alvo">
+    <label><span data-en="Name">Nome</span><input type="text" name="entry.2040077616" autocomplete="name" maxlength="80"></label>
+    <label><span data-en="Your e-mail">Seu e-mail</span><input type="email" name="entry.789168160" required autocomplete="email"></label>
+    <label><span data-en="Message">Mensagem</span><textarea name="entry.669989633" rows="4" required maxlength="2000"></textarea></label>
+    <button type="submit" class="btn peq" id="contato-enviar" data-en="Send">Enviar</button>
+  </form>
+  <p id="contato-ok" class="ok" hidden data-en="Message sent. Thank you! We'll reply by e-mail.">Mensagem enviada. Obrigado! Respondemos por e-mail.</p>
+  <iframe name="contato-alvo" id="contato-alvo" title="Envio da mensagem" hidden></iframe>
 </section>
 
 <footer class="miolo">
